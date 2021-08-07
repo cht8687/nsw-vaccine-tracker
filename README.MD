@@ -11,4 +11,4 @@ Step2: find the api call to `https://nswhvam.health.nsw.gov.au/api/sn_vaccine_sm
 
 Step3: create a .env file copy the cookies and user_token from the header of above call  
 
-Step4: replace line 21 - line 23 with your request payload from above api call 
+Step4: replace defaultPayload on line 19 in /api/index.js with your request payload from above api call 
