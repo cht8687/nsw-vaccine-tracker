@@ -1,4 +1,16 @@
+const R = require('ramda');
 const axios = require('axios').default;
+const { LOCATIONS_ID, LOCATIONS_DICTIONARY } = require('../constants');
+
+const translateArgs = args => {
+  const result = R.applySpec({
+    location: R.pipe(
+      R.prop('location'),
+      R.prop(R.__, LOCATIONS_DICTIONARY()),
+      R.prop(R.__, LOCATIONS_ID()))
+  })(args);
+  return result;
+}
 
 const instance = axios.create({
   baseURL: 'https://nswhvam.health.nsw.gov.au/api',
@@ -21,8 +33,11 @@ const defaultPayload = { "start_date": "2021-08-05 14:00:00.000", "end_date": "2
 
 
 
-const getAvailability = instance.post('/sn_vaccine_sm/appointment/availability',
-  defaultPayload
+const getAvailability = args => instance.post('/sn_vaccine_sm/appointment/availability',
+  {
+    ...defaultPayload,
+    ...translateArgs(args)
+  }
 )
 
 module.exports = {

@@ -1,8 +1,8 @@
 require('dotenv').config()
+const R = require('ramda');
 const differenceInDays = require('date-fns/differenceInDays');
 const parseISO = require('date-fns/parseISO');
 const format = require('date-fns/format');
-const R = require('ramda');
 const say = require('say');
 const chalk = require("chalk");
 const boxen = require("boxen");
@@ -10,6 +10,8 @@ const inquirer = require('inquirer');
 const { getAvailability } = require('./api');
 
 inquirer.registerPrompt('datepicker', require('inquirer-datepicker'));
+inquirer.registerPrompt('search-list', require('inquirer-search-list'));
+
 /* Console Texts */
 const greeting = chalk.white.bold("Weclome to NSW Vaccine Tracker 1.0");
 const check_for_you = chalk.green.bold("Checking for you. Please wait...");
@@ -85,8 +87,8 @@ const alertWhenDateAvailable = result => {
   )(result)
 }
 
-function fetchData() {
-  getAvailability.then(data => {
+const fetchData = (options) => {
+  return () => getAvailability(options).then(data => {
     alertWhenDateAvailable(data.data.result.data)
   }).catch(
     err => {
@@ -97,18 +99,31 @@ function fetchData() {
   );
 }
 
+/* prompts */
+const propLocation = {
+  type: "search-list",
+  message: "Select location",
+  name: "location",
+  choices: ['Belmont', 'Blacktown', 'Darlinghurst', 'Westmead', 'Macquarie Fields'],
+  validate: function(answer) {
+    return true;
+  }
+}
+
+const propMaxDate = {
+  type: 'datepicker',
+  name: 'date',
+  message: 'Select a max date time: ',
+  default: new Date('2021-09-30 19:00:00'),
+}
+
 console.log(introText);
 inquirer
-  .prompt({
-    type: 'datepicker',
-    name: 'date',
-    message: 'Select a max date time: ',
-    default: new Date('2021-09-30 19:00:00'),
-  })
+  .prompt([propMaxDate, propLocation])
   .then((answers) => {
     targetDate = answers.date
     console.log(check_for_you);
-    setInterval(fetchData, 60000);
+    setInterval(fetchData({ location: answers.location }), 60000);
   })
   .catch((error) => {
     if (error.isTtyError) {

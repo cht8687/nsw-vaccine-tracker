@@ -5,3 +5,18 @@ const LOCATIONS_ID = () => ({
   "DARLINGHURST": "bc6517dd1b4d74506e2e7510dc4bcbd0",
   "WESTMEAD": "00f02c321b2cb050828ecbb9274bcb85",
 })
+
+const LOCATIONS_DICTIONARY = () => ({
+  'Belmont': 'BELMONT',
+  'Blacktown': 'BLACKTOWN',
+  'Darlinghurst': 'DARLINGHURST',
+  'Westmead': 'WESTMEAD',
+  'Macquarie Fields': 'MACQUARIE_FIELDS',
+})
+
+
+module.exports = {
+  LOCATIONS_ID,
+  LOCATIONS_DICTIONARY
+}
+

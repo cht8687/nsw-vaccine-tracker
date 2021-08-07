@@ -19,6 +19,7 @@
     "inquirer": "^8.1.2",
     "inquirer-date-prompt": "^2.0.1",
     "inquirer-datepicker": "^2.0.0",
+    "inquirer-search-list": "^1.2.6",
     "ramda": "^0.27.1",
     "say": "^0.16.0",
     "yargs": "^13.2.4"
