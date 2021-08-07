@@ -53,9 +53,9 @@ const formatInstances = R.map(
 const reportFound = result => {
   R.cond(
     [
-      [R.gt(R.__, 0), R.always(
+      [R.gt(R.__, 0), () =>
         say.speak(`Hi, found ${result.length} available slots before ${format(targetDate, 'MMMM dd')}`)
-      )],
+      ],
       [R.T, () => console.log(nothing_found)]
     ]
   )(result.length);
