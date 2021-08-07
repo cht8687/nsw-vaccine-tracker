@@ -92,7 +92,7 @@ const fetchData = (options) => {
     alertWhenDateAvailable(data.data.result.data)
   }).catch(
     err => {
-      console.log(err)
+      console.log(err.code)
       console.log(check_failed);
       console.log(check_again);
     }
