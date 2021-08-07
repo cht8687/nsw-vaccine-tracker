@@ -11,7 +11,7 @@ const { getAvailability } = require('./api');
 
 inquirer.registerPrompt('datepicker', require('inquirer-datepicker'));
 /* Console Texts */
-const greeting = chalk.white.bold("Weclome to Vaccine Tracker 1.0");
+const greeting = chalk.white.bold("Weclome to NSW Vaccine Tracker 1.0");
 const check_for_you = chalk.green.bold("Checking for you. Please wait...");
 const check_failed = chalk.red.bold("Something wrong!");
 const check_again = chalk.green.bold("Checking for you again. Please wait...");
